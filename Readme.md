@@ -35,9 +35,3 @@ SkillSense is a web-based intelligent system that:
 ---
 
 ## 🛠️ Setup Instructions
-
-### 1. 📂 Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/skillsense.git
-cd skillsense
