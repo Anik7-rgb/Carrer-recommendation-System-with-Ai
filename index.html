@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SkillSense: Career Recommendation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <h1>SkillSense: Career Recommendation</h1>
+
+        <form action="/analyze" method="post" enctype="multipart/form-data">
+    <label>Select Resume (PDF):</label><br>
+    <input type="file" name="resume_file" accept=".pdf" required><br><br>
+
+    <label>Ask AI Career Assistant (optional):</label><br>
+    <input type="text" name="custom_query" placeholder="e.g., What can I do with Python?" style="width: 100%;"><br><br>
+
+    <input type="submit" value="Upload Resume & Get Suggestions">
+</form>
+
+        {% if filename %}
+    <p><strong>Uploaded File:</strong> {{ filename }}</p>
+{% endif %}
+
+
+        {% if skills %}
+        <div class="section">
+            <h2>Extracted Skills:</h2>
+            <ul>
+                {% for skill in skills %}
+                    <li>{{ skill }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+       {% if top_roles %}
+<h2 style="color: cyan;">Top Recommended Roles:</h2>
+<ul>
+  {% for role, score in top_roles %}
+    <li style="color: white;">{{ role }} — <strong>{{ score }}%</strong></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if jobs %}
+<h2 style="color: lightgreen;">Live Job Postings:</h2>
+<ul>
+  {% for title, link in jobs %}
+    <li><a href="{{ link }}" target="_blank" style="color: lightblue;">{{ title }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% if ai_response %}
+    <div class="section">
+        <h2>🧠 AI Career Assistant Says:</h2>
+        <p style="color: #e0e0e0;">{{ ai_response }}</p>
+    </div>
+{% endif %}
+
+{% if courses %}
+<h2 style="color: orange;">Suggested Courses:</h2>
+<ul>
+  {% for skill, course in courses %}
+    <li style="color: white;"><strong>{{ skill }}:</strong> {{ course }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+    </div>
+</body>
+</html>
